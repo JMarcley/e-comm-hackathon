@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Icon } from 'semantic-ui-react';
 import './App.css';
 
+import Store from './components/Store/Store';
+
 class App extends Component {
+  state = {
+    media: "",
+    // user: {
+    //   name: 'guest'
+    // },
+    localStorage: {}
+  }
+
+  componentDidMount() {
+    this.setMediaType();
+    window.addEventListener('resize', this.setMediaType.bind(this))
+  }
+
+  setMediaType() {
+    const width = window.innerWidth;
+    this.setState({ media: width > 700 ? "computer" : "mobile/tablet" });
+  }
+
   render() {
+    const { media } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            hello
+            <br />
+            we sell things, check it out
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <button className="scroll-button">
+            <Icon name="angle double down" size="huge" inverted/>
+          </button>
         </header>
+        <Store media={media}/>
       </div>
     );
   }
